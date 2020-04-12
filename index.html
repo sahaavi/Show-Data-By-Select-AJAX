@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      function showUser(str) {
+        if (str == "") {
+          document.getElementById("txtHint").innerHTML = "";
+          return;
+        }
+        if (window.XMLHttpRequest) {
+          // code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlhttp = new XMLHttpRequest();
+        } else {
+          // code for IE6, IE5
+          xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+          if (this.readyState == 4 && this.status == 200) {
+            document.getElementById("txtHint").innerHTML = this.responseText;
+          }
+        };
+        xmlhttp.open("GET", "getdistrict.php?q=" + str, true);
+        xmlhttp.send();
+      }
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+    />
+    <style>
+      table {
+        width: 20%;
+        border-collapse: collapse;
+        margin-top: 2%;
+        margin-left: 40%;
+        margin-right: 45%;
+      }
+
+      table,
+      td,
+      th {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
+      }
+
+      th {
+        background-color: #4caf50;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <fieldset align="center">
+      <legend>
+        Show Data By Select (AJAX)
+      </legend>
+      <form>
+        <select name="division" onchange="showUser(this.value)">
+          <option value="" disabled selected>---Select---</option>
+          <option value="Barisal">Barisal</option>
+          <option value="Chattogram">Chattogram</option>
+          <option value="Dhaka">Dhaka</option>
+          <option value="Khulna">Khulna</option>
+          <option value="Mymensingh">Mymensingh</option>
+          <option value="Rajshahi">Rajshahi</option>
+          <option value="Rangpur">Rangpur</option>
+          <option value="Sylhet">Sylhet</option>
+        </select>
+      </form>
+      <br />
+      <div id="txtHint"><b>All districts will show here</b></div>
+    </fieldset>
+  </body>
+</html>
